@@ -1,0 +1,38 @@
+    <section id="servers">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="text-center"><?php echo $trans['servers']['heading']; ?></h2>
+            <div class="border"></div>
+            <p class="lead text-center"><?php echo $trans['servers']['description']; ?></p>
+            <div style="overflow-x:auto;">
+              <table class="table">
+                <table class="table table-striped">	
+	<thead>
+    <tr>
+      <th scope="col">Server Name</th>
+      <th scope="col">IP/Port</th>
+      <th scope="col">Players</th>
+	  <th scope="col">Map</th>
+    </tr>
+  </thead>
+        <tbody>
+	<?php
+		$servers = array("B56zVzgKEV9aOQLAYZSGOUqgyS08hx6Pw7g", "vcKkxCJsVGZdJ7meBZvTIOP27rRuDbX0B", "ApiKey3", "ApiKey4");
+		$url = 'https://unturned-servers.net/api/?object=servers&element=detail&key=';
+		
+		foreach ($servers as $api) {
+			$key = "$url$api";
+			$key_json = file_get_contents($key);
+			$key_array = json_decode($key_json);
+			# This is an example use of the options to display data in simple Bootstrap4 table.
+			echo "<tr><td>" .$key_array->{'name'}. "</td><td>" .$key_array->{'address'}. ":" .$key_array->{'port'}. "</td><td>" .$key_array->{'players'}. "/" .$key_array->{'maxplayers'}. "</td><td>" .$key_array->{'map'}. "</td></tr>";
+		}
+	?>
+		</tbody>
+              </table>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </section>
